@@ -24,5 +24,5 @@ n being the length of the string array, if ```n = 0``` or ```k > n``` or ```k <=
 
 **Note**
 
-consecutive strings : follow one after another without an interruption
+consecutive strings: follow one after another without an interruption
 

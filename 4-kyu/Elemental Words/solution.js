@@ -120,62 +120,8 @@ const ELEMENTS = {
 }
 
 function elementalForms(word) {
-  const elemWordsTable = [];
-  if (!word) return elemWordsTable;
-
-  (function addTableLine(prevElements, w) {
-    let tableLine = [...prevElements];
-
-    w.split('').reduce((prevLetter, currLetter) => {
-      singleElem = currLetter.toUpperCase();
-      twinElem = prevLetter ? prevLetter.toUpperCase() + currLetter : '';
-
-      // if (ELEMENTS[singleElem] && ELEMENTS[twinElem]) {
-      //   console.log(isMatchTo(word, tableLine, singleElem, twinElem));
-      // }
-      const tempTable = [];
-      if (ELEMENTS[singleElem]) {
-        if (isMatchTo(w, tableLine, singleElem)) {
-          tempTable.push(singleElem);
-        }
-      }
-      if (ELEMENTS[twinElem]) {
-        if (isMatchTo(w, tableLine, twinElem)) {
-          tempTable.push(twinElem);
-        }
-        if (isMatchTo(w, tableLine, twinElem)) {
-          // addTableLine([...tableLine, ...twinElem]);
-        }
-      }
-
-      tableLine = [...tableLine, ...tempTable];
-      return currLetter
-    }, '');
-
-    elemWordsTable.push(tableLine);
-  })([], word);
-
-  function isMatchTo(expectedWord, wordSlice, part) {
-    const sliceWithPart = (wordSlice.join('') + part).toLowerCase();
-    return sliceWithPart === expectedWord.substr(0, sliceWithPart.length);
-  }
-  function formatElem(element) {
-    return `${ELEMENTS[element]} (${element})`
-  }
-
-  return elemWordsTable;
+  return word == '' ? [] : [1, 2, 3].filter(len => len <= word.length).reduce((res, len) => {
+    var el = word[0].toUpperCase() + word.slice(1, len).toLowerCase(), name = ELEMENTS[el];
+    return res.concat(name ? (len < word.length ? elementalForms(word.slice(len)) : [[]]).map(arr => [`${name} (${el})`].concat(arr)) : []);
+  }, []);
 }
-
-console.warn(elementalForms('snack'));
-
-
-
-
-
-
-  // function makeTableLine(prevSequence, table){
-  //   const line = [];
-  //   return () => {
-
-  //   }
-  // }
